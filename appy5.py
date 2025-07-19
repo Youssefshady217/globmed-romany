@@ -12,7 +12,7 @@ def reshape_arabic(text):
     return get_display(arabic_reshaper.reshape(str(text)))
 
 VALID_USERNAME = "romany"
-VALID_PASSWORD = "0123"
+VALID_PASSWORD = "1122"
 
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
