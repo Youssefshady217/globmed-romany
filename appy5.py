@@ -12,7 +12,7 @@ def reshape_arabic(text):
     return get_display(arabic_reshaper.reshape(str(text)))
 
 VALID_USERNAME = "romany"
-VALID_PASSWORD = "1122"
+VALID_PASSWORD = "0123"
 
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
@@ -108,25 +108,12 @@ if uploaded_file:
     # 🟩 عرض النتائج
     if med_list:
         df = pd.DataFrame(med_list)
-        st.subheader("📋 جدول الأدوية المستخرجة (قابل للتعديل):")
-        edited_df = st.data_editor(
-            df,
-            column_config={
-                "اسم الصنف": st.column_config.TextColumn("اسم الصنف"),
-                "الكمية": st.column_config.NumberColumn("الكمية"),
-                "سعر الوحدة": st.column_config.NumberColumn("سعر الوحدة"),
-                "سعر الكمية": st.column_config.NumberColumn("سعر الكمية"),
-            },
-            num_rows="fixed",
-            use_container_width=True
-        )
+        st.subheader("📋 جدول الأدوية المستخرجة:")
+        st.dataframe(df)
 
-        # ✅ إعادة حساب "سعر الكمية" تلقائيًا بعد التعديل
-        edited_df["سعر الكمية"] = edited_df["الكمية"] * edited_df["سعر الوحدة"]
-
-# زر تحميل Excel
+        # زر تحميل Excel
         output = BytesIO()
-        edited_df.to_excel(output, index=False)
+        df.to_excel(output, index=False)
         output.seek(0)
         st.download_button(
             label="⬇️ تحميل Excel",
@@ -134,7 +121,6 @@ if uploaded_file:
             file_name="approved_meds.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
-
 
         # توليد PDF
         if st.button("📄 توليد إيصال PDF"):
