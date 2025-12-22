@@ -90,7 +90,7 @@ if uploaded_file:
                     continue
 
         qty_match = re.search(r"EGP\s+\d+\.\d+\s+(\d+)", combined_line)
-        price_match = re.search(r"(\d+\.\d+)\s+(Box|Strip|Amp|Sach|Film|Vial|Tab)", combined_line, re.IGNORECASE)
+        price_match = re.search(r"(\d+\.\d+)\s+(Box|Strip|Amp|Sach|Film|Vial|Tab|Sachets|sachets)", combined_line, re.IGNORECASE)
 
         qty = float(qty_match.group(1)) if qty_match else 0.0
         unit_price = float(price_match.group(1)) if price_match else 0.0
@@ -217,4 +217,5 @@ if uploaded_file:
             )
     else:
         st.info("ℹ️ لم يتم التعرف على أي أصناف حتى الآن.")
+
 
